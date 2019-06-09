@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>中学生物理考试平台</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/page-index.css">
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+	<script type="text/javascript">
+		function play() {
+			var video = document.getElementById("video");
+			video.play();
+		}
+	</script>
+</head>
+<body>
+	<div class="header" onclick="fun1()">
+        <img src="img/header.png" width="1440px" height="60px">
+	</div>
+
+
+	<div class="content">
+		<div class="personal">
+
+		     <img src="img/personal.png" width="211px" height="108px"> 
+
+<!-- 实验总得分 -->
+			<h1 id="grade">5</h1>
+			<h2>10</h2>
+
+			<a href="#" class="button"></a>
+		</div>
+		<div class="goal">
+
+<!-- 各步骤得分 -->
+			<ul class="mark">
+				<li id="0" style="margin-top: 1px;">2</li>              <!-- 步骤一可固定为2分，不做分析 -->
+				<li id="1" style=" margin-top:19px;">1</li>              <!-- 步骤二 -->
+				<li id="2" style="margin-top:16px;">1</li>              <!-- 步骤三 -->
+				<li id="3" style="margin-top:20px;">1</li>              <!-- 步骤四 -->
+				<li id="last">0</li>	<!-- 步骤五 -->
+			</ul>
+			<img src="img/goal.png" width="433px" height="282px">
+		</div>
+		<div class="error">
+			<ul>
+<!-- 错误报告，每个li对应一个错误，错几个显示写几个li -->
+				<li id="error1">
+				   <img src="img/x.png" width="10px" height="10px">
+				   小车释放前未靠近打点计时器&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-1
+				   <a href="#" onclick="video1()">查看该处视频</a>
+				</li>
+				<li id="error2">
+				   <img src="img/x.png" width="10px" height="10px">
+				   先释放小车，才接通计时器&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-2
+				   <a href="#" onclick="video2()">查看该处视频</a>
+				</li>
+				<li id="error3">
+				   <img src="img/x.png" width="10px" height="10px">
+				   实验误差结果较大&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-2
+				   <a href="#" onclick="video3()">查看该处视频</a>
+				</li>
+				<li id="error4">
+				   <img src="img/x.png" width="10px" height="10px">
+				   实验结束未整理实验仪器&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-1
+				   <a href="#" onclick="video4()">查看该处视频</a>
+				</li>
+				<li id="error5">
+					<img src="img/x.png" width="10px" height="10px">
+					实验结果错误 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-3
+					<a href="#" onclick="video5()">查看该处视频</a>
+				</li>
+
+			</ul>
+			<div style="position:absolute;"><div id="errorimg" style="height:0;position:relative;font: 22px Yuanti SC;color: #000;float: left;position:relative;left:120px;top:70px;">尚未获得考试结果！
+			<p><img style="margin-left:15px" height="150"src="img/error.jpg"/></p></div>
+			</div>
+			<img src="img/error.png" width="432px" height="246px">
+
+		</div>	
+	</div>
+	<div class="content2">
+
+			<div id="items" style="font: 22px Yuanti SC;color: #000;float: left;position:relative;left:330px;top:250px;"><span id="itemstxt">暂未获得考试结果！</span>
+			<p><img style="margin-left:15px;height:150px;"src="img/play.png"/></p></div>
+			<div class="video">
+				<video id="video" style="width:850px; height:637px;position:relative;top:-7px;" onclick="play()"src="#" />
+<!-- 在此插入视频 -->
+
+	
+			</div>
+			
+	</div>
+
+	<script>
+
+		function fun1() {
+
+			
+
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'showStar',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					if(response.ok > 0){
+						document.getElementById("grade").innerHTML= response.grade;
+						document.getElementById("0").innerHTML= response.result0;
+						document.getElementById("1").innerHTML= response.result1;
+						document.getElementById("2").innerHTML= response.result2;
+						document.getElementById("3").innerHTML= response.result3;
+						document.getElementById("last").innerHTML= response.result4;
+
+						if(response.error1 > 0){
+							$("#error1").show();
+						}
+						if(response.error2 > 0){
+							$("#error2").show();
+						}
+						if(response.error3 > 0){
+							$("#error3").show();
+						}
+						if(response.error4 > 0){
+							$("#error4").show();
+						}
+						if(response.error5 > 0){
+							$("#error5").show();
+						}
+						$("#errorimg").hide();
+						document.getElementById("items").setAttribute('style', 'font: 22px Yuanti SC;color: #000;float: left;position:relative;top:-15px;');
+						document.getElementById("items").innerHTML ="学生操作录像：";
+						$("#video").hide();
+						document.getElementById("video").src = response.video0;
+						$("#video").show();
+					}
+					else{
+						document.getElementById("items").setAttribute('style', 'font: 22px Yuanti SC;color: #000;float: left;position:relative;left:330px;top:250px;');
+						document.getElementById("itemstxt").innerHTML ="暂未获得考试结果！";
+						document.getElementById("grade").innerHTML= "_" ;
+						document.getElementById("0").innerHTML= "_";
+						document.getElementById("1").innerHTML= "_";
+						document.getElementById("2").innerHTML= "_";
+						document.getElementById("3").innerHTML= "_";
+						document.getElementById("last").innerHTML= "_";
+						$("#errorimg").show();
+						$("#error1").hide();
+						$("#error2").hide();
+						$("#error3").hide();
+						$("#error4").hide();
+						$("#error5").hide();
+						$("#video").hide();
+						
+					}
+				}
+			});
+			return false;
+		}
+		function video1() {
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'video1',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					$(".video").hide();
+					document.getElementById("video").src = response.video1;
+					$(".video").show();
+
+				}
+			});
+			return false;
+		}
+		function video5() {
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'video5',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					$(".video").hide();
+					document.getElementById("video").src = response.video1;
+					$(".video").show();
+
+				}
+			});
+			return false;
+		}
+		function video2() {
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'video2',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					$(".video").hide();
+					document.getElementById("video").src = response.video1;
+					$(".video").show();
+
+				}
+			});
+			return false;
+		}
+		function video3() {
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'video3',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					$(".video").hide();
+					document.getElementById("video").src = response.video1;
+					$(".video").show();
+
+				}
+			});
+			return false;
+		}
+		function video4() {
+			var formData = new FormData();
+			formData.append("tag", 1);
+			$.ajax({
+				url: 'video4',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false,
+				//async: false,
+				cache: false,
+
+				success: function (response) {
+					$(".video").hide();
+					document.getElementById("video").src = response.video1;
+					$(".video").show();
+
+				}
+			});
+			return false;
+		}
+	</script>
+</body>
+</html>

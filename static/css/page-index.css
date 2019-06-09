@@ -1,0 +1,114 @@
+body{
+	background-color: #F4F5F9;
+}
+.clearfix:before,
+.clearfix:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.clearfix{
+	zoom:1;
+}
+.personal{
+	padding: 0 52px 20px 62px;
+}
+h1{
+	font:  47px Yuanti SC;
+	color: #FFBF00;
+	float: right;
+	position: relative;
+	right: 273px;
+	top:14px;
+}
+h2{
+	font:  60px Yuanti SC;
+	color: #000;
+	float: right;
+	position: relative;
+	right: 208px;
+	top:47px;
+}
+.mark{
+	font: bold 14px Yuanti SC;
+	color: #FFBF00;
+	position: absolute;
+	left: 443px;
+	top: 298px;
+}
+#last{
+	margin-top: 40px;
+}
+.error ul{
+	font:12px PingFang SC;
+	color: #707070;
+	position: absolute;
+	left: 87px;
+	top: 590px;
+}
+.error li{
+	margin-bottom: 18px;
+}
+.error li span{
+	position: absolute;
+	left: 200px;
+}
+.error ul li a {
+  text-decoration: none;
+  color: #707070;
+  font:10px Yuanti SC;
+  position: relative;
+  left: 68px;
+}
+.error ul li a:hover{
+	color: #0062FF;
+}
+.error ul li a:active{
+	color: #0062FF;
+}
+
+.button{
+	display: block;
+	width: 166px;
+	height: 54px;
+	background-image: url(../img/button.png);
+	float: right;
+	position: relative;
+	left: 44px;
+	top:50px;
+}
+.button:hover{
+	background-position: -166px 0;
+}
+.goal{
+	padding: 0 34px 23px 62px;
+}
+.error{
+	padding: 0 34px 0 62px;
+}
+.error ul li{
+	display:none;
+}
+h2{
+	font: 18px PingFang SC;
+	color: #404040;
+}
+.content , .content2{
+	float: left;
+	padding-top: 32px;
+}
+.video{
+	background-color: #CDCDCD;
+	width: 850px;
+	height: 638px;
+	margin-top: 22px;
+	border-radius: 14px;
+}
+.video p{
+	font:22px PingFang SC;
+	color: #707070;
+	position: relative;
+	left: 330px;
+	top: 309px;
+
+}
