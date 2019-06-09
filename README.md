@@ -1,2 +1,2 @@
 # Physicis_experiment
-中美创客二等奖
+19中美创客第二名
